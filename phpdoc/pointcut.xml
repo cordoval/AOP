@@ -101,6 +101,39 @@ $pointcut = '**\\*->*()';
    </programlisting>
   </example>
  </para>
+
+ <para>
+  <example><title>Property operation</title>
+   <para>
+    The following example shows several syntax for describing a property operation.
+   </para>
+   <programlisting role="php">
+<![CDATA[
+<?php
+//will match echo Foo->bar, foo->bar = 'foo' and Foo->bar++, where Foo is the type (class, interface or trait) of the object and bar the name of the accessed property
+//Won't match namespaceFoo\Foo->bar or Foo->Bar (case sensitive)
+$pointcut = 'Foo->bar';
+
+//will match echo Foo->bar, fooBar->bar, anything->bar but NOT namespaceFoo\foo->bar (namespace does not match);
+$pointcut = '*->bar';
+
+//will match foo->bar, foo->Foobar, fooBarFoo->fooFoobar but NOT namespace1\foo->bar (namespace does not match)
+$pointcut = '*foo->*bar';
+
+//will match foo\bar->bar, foo\foo->bar but NOT foo\bar\foo->bar (the object should be directly in the foo namespace);
+$pointcut = 'foo\\*->bar';
+
+//will match foobar\foobar\anything->bar, but NOT foobar\foo->bar (the object should be in a two level namespace described as in the pointcut)
+$pointcut = '*bar\\foo*\\*->bar';
+
+//will match any property operation of objects of any types in any namespaces
+$pointcut = '**\\*->*';
+?>
+]]>
+   </programlisting>
+  </example>
+ </para>
+
 </chapter>
 
 <!-- Keep this comment at the end of the file
