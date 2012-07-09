@@ -134,6 +134,30 @@ $pointcut = '**\\*->*';
   </example>
  </para>
 
+ <para>
+  <example><title>Using visibility operators</title>
+   <para>
+    The following example shows several syntax for describing operations that takes visibility into account
+   </para>
+   <programlisting role="php">
+<![CDATA[
+<?php
+class Foo
+{
+   //Will be matched by 'public Foo->bar()', but not by 'protected Foo->bar()'
+   public function bar () {
+   }
+
+   //will be matched by '!public Foo->foo()', 'protected | private Foo->foo()'
+   protected function foo () {
+   }
+}
+?>
+]]>
+   </programlisting>
+  </example>
+ </para>
+
 </chapter>
 
 <!-- Keep this comment at the end of the file
