@@ -38,7 +38,7 @@
    <programlisting role="php">
 <![CDATA[
 <?php
-//will match foo(), Foo() and fOo(), but NOT bar\foo(), foo\bar(), bar\foo() or foo\foo()
+//will match foo(), Foo() and fOo(), but NOT bar\foo(), foo\bar(), bar\foo(), foo\foo() or $object->foo()
 $pointcut = 'myFunction()';
 
 //will match foo(), fooo(), fooBar() and so on, but not foo\bar() or bar\foo()
@@ -64,6 +64,38 @@ $pointcut = '**\\foo()';
 
 //will match startWithFooSomething\anything\else\bar() including startWithFoo\bar();
 $pointcut = 'StartWithFoo*\\**\\bar()'; //same as 'StartWithFoo**\\bar()';
+?>
+]]>
+   </programlisting>
+  </example>
+ </para>
+
+ <para>
+  <example><title>Method calls</title>
+   <para>
+    The following example shows several syntax for describing a method call.
+   </para>
+   <programlisting role="php">
+<![CDATA[
+<?php
+//will match Foo->bar(), foo->Bar() and foo->bar(), where Foo is the type (class, interface or trait) of the object and bar the name of the called method.
+//Won't match namespaceFoo\Foo->Bar()
+$pointcut = 'Foo->bar()';
+
+//will match Foo->bar(), fooBar->bar(), anything->bar() but NOT namespaceFoo\foo->Bar();
+$pointcut = '*->bar()';
+
+//will match foo->bar(), foo->fooBar(), fooBarFoo->foofooBar() but NOT namespace1\foo->bar()
+$pointcut = '*foo->*bar()';
+
+//will match foo\bar->bar(), foo\foo->bar() but NOT foo\bar\foo->bar();
+$pointcut = 'foo\\*->bar()';
+
+//will match foobar\foobar\anything->bar(), but NOT foobar\foo->bar()
+$pointcut = '*bar\\foo*\\*->bar()';
+
+//will match any method of objects of any types in any namespaces
+$pointcut = '**\\*->*()';
 ?>
 ]]>
    </programlisting>
