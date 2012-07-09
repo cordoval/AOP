@@ -10,15 +10,13 @@
  <refsect1 role="description">
   &reftitle.description;
   <methodsynopsis>
-   <type>ReturnType</type><methodname>aop_add_after</methodname>
+   <type>void</type><methodname>aop_add_after</methodname>
    <methodparam><type>string</type><parameter>pointcut</parameter></methodparam>
-   <methodparam><type>string</type><parameter>callback</parameter></methodparam>
+   <methodparam><type>callable</type><parameter>callback</parameter></methodparam>
   </methodsynopsis>
   <para>
-
+   Adds an advice to a given pointcut. The advice will be executed right after the matched join point execution.
   </para>
-
-  &warn.undocumented.func;
 
  </refsect1>
 
@@ -29,7 +27,7 @@
     <term><parameter>pointcut</parameter></term>
     <listitem>
      <para>
-      
+      The pointcut that will match join points.
      </para>
     </listitem>
    </varlistentry>
@@ -37,7 +35,7 @@
     <term><parameter>callback</parameter></term>
     <listitem>
      <para>
-      
+      The advice
      </para>
     </listitem>
    </varlistentry>
